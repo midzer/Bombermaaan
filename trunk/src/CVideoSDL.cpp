@@ -168,7 +168,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for windowed mode %dx%d.", m_Width, m_Height);
 
         // Get normal windowed mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL);
+        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_WINDOW_OPENGL);
 
         if (m_pPrimary == NULL)
         {
@@ -186,7 +186,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
 
         // Get fullscreen mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL | SDL_FULLSCREEN);
+        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_WINDOW_OPENGL | SDL_FULLSCREEN);
 
         if (m_pPrimary == NULL)
         {

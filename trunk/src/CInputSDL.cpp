@@ -178,7 +178,7 @@ bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState, int StateSize)
 bool CInputSDL::UpdateDevice(void* pState, int StateSize)
 {
 
-    Uint8* keyState = SDL_GetKeyState(nullptr);
+    Uint8* keyState = SDL_GetKeyboardState(nullptr);
 
     for (int i = 0; i < StateSize; i++)
         SetKey(i, keyState[i] == 1);

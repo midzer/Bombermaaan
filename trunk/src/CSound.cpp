@@ -533,7 +533,7 @@ void CSound::PlaySample(ESample Sample)
         {
             // Start playing this sample
             Mix_PlayChannel(-1, m_Samples[Sample], 0);
-            Mix_VolumeChunk(m_Samples[Sample], 64);
+            //Mix_VolumeChunk(m_Samples[Sample], 64);
         }
     }
 }

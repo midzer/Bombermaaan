@@ -164,8 +164,8 @@ WinReplace.cpp
 source_group("Header Files" FILES ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_DX_HEADERS} ${BOMBERMAAAN_NET_HEADERS} ${WINREPLACE_HEADERS})
 source_group("Source Files" FILES ${BOMBERMAAAN_SOURCES} ${BOMBERMAAAN_DX_SOURCES} ${BOMBERMAAAN_NET_SOURCES} ${WINREPLACE_SOURCES})
 
-find_package(SDL REQUIRED)
-find_package(SDL_mixer REQUIRED)
+find_package(SDL)
+find_package(SDL_mixer)
 
 if(USE_ALLEGRO)
   find_package(Allegro4 REQUIRED)
@@ -207,16 +207,15 @@ include_directories(
 )
 
 set(BOMBERMAAAN_LIBRARIES
-  ${SDL_LIBRARY}
-  ${SDLMIXER_LIBRARY}
   tinyxml
 )
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
 
-if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
-endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x -sUSE_SDL=1 -sUSE_SDL_MIXER=1")
+add_link_options(-sERROR_ON_UNDEFINED_SYMBOLS=0 -sASSERTIONS=1)
+# for final linking step:
+# emcc -O3 *.o libtinyxml.a -o index.html -sUSE_SDL=1 -sUSE_SDL_IMAGE=1 -sUSE_SDL_MIXER=1 -sASYNCIFY -sASSERTIONS=1 -sINITIAL_MEMORY=128mb -sSTACK_SIZE=524288 -sERROR_ON_UNDEFINED_SYMBOLS=0 -sSTB_IMAGE=1 --preload-file data
 
 if(MINGW)
   set(CMAKE_RC_COMPILER_INIT windres)

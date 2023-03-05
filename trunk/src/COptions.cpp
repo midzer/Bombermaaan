@@ -214,7 +214,7 @@ void COptions::SetDefaultValues()
 #ifdef _DEBUG
     m_DisplayMode = DISPLAYMODE_WINDOWED;
 #else
-    m_DisplayMode = DISPLAYMODE_FULL3;
+    m_DisplayMode = DISPLAYMODE_WINDOWED;
 #endif
 
     // Set the bomber types
@@ -610,7 +610,7 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 #ifdef WIN32
     levelFilePath_pgmFolder.append("levels\\");
 #else
-    levelFilePath_pgmFolder.append("levels/");
+    levelFilePath_pgmFolder.append("data/levels/");
 #endif
 
     std::string levelFilePath_pgmFolderMask;
