@@ -209,11 +209,11 @@ bool CDisplay::Create(EDisplayMode DisplayMode)
     switch (DisplayMode)
     {
     case DISPLAYMODE_FULL1:
-        return Create(320, 240, true);
+        return true;
     case DISPLAYMODE_FULL2:
-        return Create(512, 384, true);
+        return true;
     case DISPLAYMODE_FULL3:
-        return Create(640, 480, true);
+        return true;
     case DISPLAYMODE_WINDOWED:
         return Create(VIEW_WIDTH, VIEW_HEIGHT, false);
     default:

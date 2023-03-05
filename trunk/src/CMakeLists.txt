@@ -164,8 +164,8 @@ WinReplace.cpp
 source_group("Header Files" FILES ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_DX_HEADERS} ${BOMBERMAAAN_NET_HEADERS} ${WINREPLACE_HEADERS})
 source_group("Source Files" FILES ${BOMBERMAAAN_SOURCES} ${BOMBERMAAAN_DX_SOURCES} ${BOMBERMAAAN_NET_SOURCES} ${WINREPLACE_SOURCES})
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_mixer REQUIRED)
+find_package(SDL2)
+find_package(SDL2_mixer)
 
 if(USE_ALLEGRO)
   find_package(Allegro4 REQUIRED)
@@ -214,9 +214,11 @@ set(BOMBERMAAAN_LIBRARIES
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
 
-if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
-endif()
+#if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x -sUSE_SDL=2 -sUSE_SDL_MIXER=2")
+#endif()
+# emcripten link step with:
+# emcc -O3 *.o libtinyxml.a -o index.html -sUSE_SDL=2 -sUSE_SDL_MIXER=2 -sASYNCIFY -sINITIAL_MEMORY=512mb -sSTACK_SIZE=524288 --preload-file data
 
 if(MINGW)
   set(CMAKE_RC_COMPILER_INIT windres)

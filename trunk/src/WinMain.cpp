@@ -41,6 +41,8 @@
 
 #include "Bombermaaan.h"
 
+#include <emscripten.h>
+
 /**
  *  \mainpage Bombermaaan source code documentation
  *
@@ -52,6 +54,11 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
+
+void mainLoop(void* arg)
+{
+  static_cast<CGame*>(arg)->MessagePump();
+}
 
 /**
  *  \brief This is the main function of the executable file.
@@ -95,6 +102,7 @@ int main(int argc, char** argv)
 
     // Create the CGame instance
     CGame Game(hInstance, lpCmdline);
+    emscripten_set_main_loop_arg(mainLoop, &Game, 0, 0);
 
     // If creating the game failed
 #ifdef WIN32
