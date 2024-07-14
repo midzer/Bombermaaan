@@ -94,7 +94,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     m_pWindow = SDL_CreateWindow("Bombermaaan",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          m_Width, m_Height, FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+                          m_Width, m_Height, FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_ALLOW_HIGHDPI);
 
     if (m_pWindow == nullptr)
     {
