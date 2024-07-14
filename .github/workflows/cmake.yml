@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
         
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
@@ -19,18 +19,19 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install SDL
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get install libsdl1.2-dev libSDL-mixer1.2-dev 
+          sudo apt update
+          sudo apt-get install libsdl2-dev libsdl2-mixer-dev
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          curl --output $GITHUB_WORKSPACE/SDL-1.2.15.zip --url https://libsdl.org/release/SDL-devel-1.2.15-VC.zip          
-          unzip $GITHUB_WORKSPACE/SDL-1.2.15.zip
-          curl --output $GITHUB_WORKSPACE/SDL_mixer-1.2.12.zip --url https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-devel-1.2.12-VC.zip
-          unzip $GITHUB_WORKSPACE/SDL_mixer-1.2.12.zip
+          curl --output $GITHUB_WORKSPACE/SDL2-devel-2.26.4-VC.zip --url https://libsdl.org/release/SDL2-devel-2.26.4-VC.zip
+          unzip $GITHUB_WORKSPACE/SDL2-devel-2.26.4-VC.zip
+          curl --output $GITHUB_WORKSPACE/SDL2_mixer-devel-2.6.3-VC.zip --url https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.6.3-VC.zip
+          unzip $GITHUB_WORKSPACE/SDL2_mixer-devel-2.6.3-VC.zip
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -51,9 +52,9 @@ jobs:
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF 
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON -A Win32 -DSDL_INCLUDE_DIR=$GITHUB_WORKSPACE/SDL-1.2.15/include -DSDL_LIBRARY=$GITHUB_WORKSPACE/SDL-1.2.15/lib/x86/SDL.lib -DSDL_MIXER_INCLUDE_DIR=$GITHUB_WORKSPACE/SDL_mixer-1.2.12/include -DSDL_MIXER_LIBRARY=$GITHUB_WORKSPACE/SDL_mixer-1.2.12/lib/x86/SDL_mixer.lib      
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF -A Win32 -DSDL2_DIR=$GITHUB_WORKSPACE/SDL2-2.26.4/cmake -DSDL2_mixer_DIR=$GITHUB_WORKSPACE/SDL2_mixer-2.6.3/cmake
         else
           echo "$RUNNER_OS not supported"
           exit 1

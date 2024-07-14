@@ -179,7 +179,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     {
         // Display a message box
 #ifdef WIN32
-        MessageBox(NULL,
+        MessageBox(nullptr,
 #else
         fprintf(stdout,
 #endif
@@ -254,7 +254,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     // __argv[0] is the full path including the exe file name
     // If we append a "\.." to the full path, we get the location where the dll and exe file(s) are placed
     pgmFolder.append(__argv[0]);
-    pgmFolder.append("\\..");
+    pgmFolder = pgmFolder.substr(0, pgmFolder.find_last_of("\\/"));
     SetCurrentDirectory(pgmFolder.c_str());
 #else
     // determine level path by resolving the symlink /proc/self/exe
@@ -273,7 +273,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 
             // now we have the path of the app, strip app name.
             lastSlash = strrchr(buf, '/');
-            if (lastSlash == NULL)
+            if (lastSlash == nullptr)
             {
                 pgmFolder.append("");
             }
@@ -286,7 +286,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
             {
                 // find out ../
                 char* tempPath = new char[lastSlash - buf + 1];
-                if (tempPath == NULL)
+                if (tempPath == nullptr)
                     return false;
 
                 strncpy(tempPath, buf, lastSlash - buf);
@@ -340,7 +340,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
         dynamicDataFolder.append("\\Bombermaaan\\");
 
         // Create the Bombermaaan directory
-        if (!CreateDirectory(dynamicDataFolder.c_str(), NULL))
+        if (!CreateDirectory(dynamicDataFolder.c_str(), nullptr))
         {
             // Exit the game if the folder cannot be created and it doesn't exist already
             if (GetLastError() != ERROR_ALREADY_EXISTS)
@@ -435,7 +435,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     m_hModule = LoadLibrary(NAME_OF_BOMBERMAN_DLL);
 
     // If it failed
-    if (m_hModule == NULL)
+    if (m_hModule == nullptr)
     {
         // Log error
         theLog.WriteLine("Game            => !!! Could not load " NAME_OF_BOMBERMAN_DLL ".");
@@ -447,7 +447,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #endif
 
 #ifdef SDL
-    if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1)
     {
         theLog.WriteLine("Game            => !!! Could not initialise SDL library");
         theLog.LogLastError();
@@ -459,7 +459,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     install_timer();
     install_keyboard();
     install_joystick(JOY_TYPE_AUTODETECT);
-    install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL);
+    install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, nullptr);
 
     set_color_depth(32);
 #elif DIRECTX
@@ -841,7 +841,7 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     }
 
     // There is no object manager for this game mode
-    return NULL;
+    return nullptr;
 }
 
 //******************************************************************************************************************************
@@ -1131,7 +1131,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
     }
     else
     {
-
         //! Quickly exit the game with Ctrl + F12
         if (wParam == VK_F12)
         {

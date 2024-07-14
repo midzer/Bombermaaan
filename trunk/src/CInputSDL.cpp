@@ -103,7 +103,7 @@ bool CInputSDL::Create()
         {
             SJoystick* pJoystick = new SJoystick;
 
-            if (pJoystick == NULL)
+            if (pJoystick == nullptr)
             {
                 // Log failure
                 theLog.WriteLine("SDLInput        => !!! Could not allocate memory for a joystick.");
@@ -118,7 +118,7 @@ bool CInputSDL::Create()
             // The joystick is not opened yet
             pJoystick->Opened = false;
 
-            // Set the joystick's device to NULL (will be created later)
+            // Set the joystick's device to nullptr (will be created later)
             pJoystick->pDevice = nullptr;
 
             m_pJoysticks.push_back(pJoystick); // the joystick is not opened
@@ -526,9 +526,14 @@ void CInputSDL::MakeKeyFriendlyNames()
 #endif
 
             if (c == -1)
-                m_KeyFriendlyName[Key][sizeof(m_KeyFriendlyName[Key]) - 1] = '\0';
-            else
+            {
+                c = sizeof(m_KeyFriendlyName[Key]) - 1;
+            }
+
+            if (c < MAX_PATH) 
+            {
                 m_KeyFriendlyName[Key][c] = '\0';
+            }
 
             break;
         }
