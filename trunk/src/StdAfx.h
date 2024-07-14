@@ -28,6 +28,7 @@
 #ifndef __STDAFX_H__
 #define __STDAFX_H__
 
+#define NDEBUG
 #include <assert.h>
 #include <math.h>
 #include <stdarg.h>

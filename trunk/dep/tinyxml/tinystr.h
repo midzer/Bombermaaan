@@ -26,6 +26,7 @@ distribution.
 #ifndef TIXML_STRING_INCLUDED
 #define TIXML_STRING_INCLUDED
 
+#define NDEBUG
 #include <assert.h>
 #include <string.h>
 

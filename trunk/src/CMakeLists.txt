@@ -208,14 +208,16 @@ include_directories(
 
 set(BOMBERMAAAN_LIBRARIES
   SDL2::SDL2
-  SDL2_mixer::SDL2_mixer
+  #SDL2_mixer::SDL2_mixer
   tinyxml
 )
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
 
 #if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -flto -O3 -fno-rtti -fno-exceptions -sUSE_SDL=2 -sUSE_SDL_MIXER=2")
+  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -flto -O3 -fno-rtti -fno-exceptions -sUSE_SDL=2 -sUSE_SDL_MIXER=2")
+  #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -flto -O3 -fno-rtti -fno-exceptions -sUSE_SDL=2 -sUSE_SDL_MIXER=2")
+  add_compile_options(-Wall -flto -O3 -fno-rtti -fno-exceptions -sUSE_SDL=2 -sUSE_SDL_MIXER=2)
 #endif()
 # emcripten link step with:
 # emcc -flto -O3 *.o libtinyxml.a -o index.html -sUSE_SDL=2 -sUSE_SDL_MIXER=2 -sASYNCIFY -sINITIAL_MEMORY=256mb -sSTACK_SIZE=262144 --preload-file levels --preload-file images --preload-file sounds --closure 1

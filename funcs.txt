@@ -1,0 +1,12 @@
+[
+    "main",
+    "mainLoop(void*)",
+    "CWindow::MessagePump()",
+    "CGame::OnWindowActive()",
+    "SDL_Delay",
+    "SDL_RenderPresent",
+    "GLES2_RenderPresent",
+    "Emscripten_GLES_SwapWindow",
+    "dynCall_v",
+    "dynCall_vi"
+]

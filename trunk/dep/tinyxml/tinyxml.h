@@ -31,6 +31,7 @@ distribution.
 #pragma warning(disable : 4786)
 #endif
 
+#define NDEBUG
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
